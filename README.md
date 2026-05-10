@@ -1,54 +1,114 @@
-# Jenkins_Lab_1
----
-## Lab 1 – CI Foundation: Unit Tests, Webhooks & Secrets
-## Description
-You have a simple PHP web app ( with HTML/CSS/JS frontend and PHP backend)
-The code is in a public GitHub repository. You will configure Jenkins to:
-- Trigger a build automatically when code is pushed (webhook).
-- Run a unit test (PHPUnit) against the PHP logic.
-- Store sensitive data (GitHub personal access token) as a secret in Jenkins.
-- Fail the build if tests fail.
-## Goal of this lab:
-1. Create a declarative pipeline (Jenkinsfile)
-2. Configure a GitHub webhook to trigger builds on push to a public repo
-3. Write and execute a unit test
-4. Store and use a GitHub token as a secret in Jenkins
-5. Understand build triggers, pipeline syntax, and console output
+# zrok - Secure internet sharing made simple
+
+![zrok logo](docs/images/zrok_cover.png)
+
+**Share anything, anywhere, instantly. Enterprise reliability. No firewall changes. No port forwarding. No hassle.**
+
+zrok lets you securely share web services, files, and network resources with anyone—whether they're across the internet or your private network. Built on zero-trust networking, it works through firewalls and NAT without requiring any network configuration changes.
+
+## Quick start
+
+Get sharing in under 2 minutes:
+
+1. **[Install zrok](https://docs.zrok.io/docs/guides/install/)** for your platform
+2. **Get an account**: `zrok invite` (use the free [zrok.io service](https://docs.zrok.io/docs/getting-started/))
+3. **Enable sharing**: `zrok enable`
+
+That's it! Now you can share anything:
+
+```bash
+# Share a web service publicly
+$ zrok share public localhost:8080
+
+# Share files as a network drive  
+$ zrok share public --backend-mode drive ~/Documents
+
+# Share privately with other zrok users
+$ zrok share private localhost:3000
+```
+
+![zrok Web Console](docs/images/zrok_web_console.png)
+
+## What you can share
+
+### Web services
+
+Instantly make local web apps accessible over the internet:
+
+```bash
+zrok share public localhost:8080
+```
+
+![zrok share public](docs/images/zrok_share_public.png)
+
+### Files & directories
+
+Turn any folder into a shareable network drive:
+
+```bash
+zrok share public --backend-mode drive ~/Repos/zrok
+```
+
+![zrok share public -b drive](docs/images/zrok_share_public_drive.png)
+![mounted zrok drive](docs/images/zrok_share_public_drive_explorer.png)
+
+### Private resources
+
+Share TCP/UDP services securely with other zrok users—no public internet exposure.
+
+## Key features
+
+- **Zero Configuration**: Works through firewalls, NAT, and corporate networks
+- **Secure by Default**: End-to-end encryption with zero-trust architecture  
+- **Public & Private Sharing**: Share with anyone or just specific users
+- **Multiple Protocols**: HTTP/HTTPS, TCP, UDP, and file sharing
+- **Cross-Platform**: Windows, macOS, Linux, and Raspberry Pi
+- **Self-Hostable**: Run your own zrok service instance
+
+## How it works
+
+zrok is built on [OpenZiti](https://docs.openziti.io/docs/learn/introduction/), a programmable zero-trust network overlay. This means:
+
+- **No inbound connectivity required**: Works from behind firewalls and NAT
+- **End-to-end encryption**: All traffic is encrypted, even from zrok servers
+- **Peer-to-peer connections**: Direct connections between users when possible
+- **Identity-based access**: Share with specific users, not IP addresses
+
+## Developer SDK
+
+Embed zrok sharing into your applications with our Go SDK:
+
+```go
+// Create a share
+shr, err := sdk.CreateShare(root, &sdk.ShareRequest{
+    BackendMode: sdk.TcpTunnelBackendMode,
+    ShareMode:   sdk.PrivateShareMode,
+})
+
+// Accept connections
+listener, err := sdk.NewListener(shr.Token, root)
+```
+
+[Read the SDK guide](https://blog.openziti.io/the-zrok-sdk) for complete examples.
+
+## Self-hosting
+
+Run your own zrok service—from Raspberry Pi to enterprise scale:
+
+- Single binary contains everything you need
+- Scales from small personal instances to large public services
+- Built on the same codebase as the public zrok.io service
+
+[Self-Hosting Guide](https://docs.zrok.io/docs/guides/self-hosting/self_hosting_guide/)
+
+## Resources
+
+- **[Documentation](https://docs.zrok.io/)**
+- **[Office Hours Videos](https://www.youtube.com/watch?v=Edqv7yRmXb0&list=PLMUj_5fklasLuM6XiCNqwAFBuZD1t2lO2)**
+- **[Building from source](./BUILD.md)**
+- **[Contributing](./CONTRIBUTING.md)**
 
 ---
-## Tasks: 
-1. Prepare the public GitHub repository
-2. Install PHPUnit on the Jenkins server
-3. Create a Jenkins Pipeline job
-4. Store GitHub Personal Access Token in Jenkins credentials (ID: github-token) with scope “Global”.
-5. Configure GitHub webhook
-6. Write the Jenkinsfile
-7. Trigger the build by pushing a commit that breaks a unit test, then fix it and push again to see the automatic build
 
---- 
-
-#                                          **Instructions**
-1. clone this repo $ git clone https://github.com/ahmedsamyabdullah/digi-jenkins-lab.git
-2. $ docker exec -u root -it jenkins bash
-3. $ apt update
-4. $ apt install -y php-cli php-mbstring php-xml php-curl unzip
-5. $ wget -O /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar
-6. $ chmod +x /usr/local/bin/phpunit
-7. Create GitHub Personal Access Token (PAT)
-    - settings -> developer settings -> personal access token -> classic
-    - Scopes ( repo  & admin:repo_hook )
-    - **Important**: Copy and Save your PAT in external file
-8. Store GitHub Personal Access Token in Jenkins credentials (ID: github-token) with scope “Global”.
-   - Add Credentials -> secret text 
-   - secret (your tokne PAT)
-9. Configure GitHub webhook 
-   - install github integration plugin on jenkins
-   - from your repo -> settings -> webhook -> Add webhook
-   - **Note**: for Payload URL use ngrok
-10. Ngrok -> login with github accound -> download on windows (host) and get auth
-11. open powershell on windows 
-    - $ ngrok http http://192.168.x.x:8080    # ip of your ubuntu vm
-    - must payload URL on github end by /github-webhook/
-    - check Recent Deliveries tab in github webhook is success ping
-12. Write the Jenkinsfile
-    - # JenBonus
+*Ready to start sharing? [Get started with zrok →](https://docs.zrok.io/docs/getting-started)*
+# test webhook
