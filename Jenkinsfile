@@ -1,5 +1,6 @@
+cat > /home/u1/Desktop/jenBonus/Jenkinsfile << 'EOF'
 pipeline {
-    agent any
+   agent { label 'built-in' }
 
     stages {
         stage('Checkout') {
@@ -26,3 +27,4 @@ pipeline {
         }
     }
 }
+EOF
