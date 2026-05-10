@@ -3,7 +3,7 @@ namespace App;
 
 class OrderProcessor {
     public function process($name, $service) {
-        if (empty($name) || strlen($name) < 10) {
+        if (empty($name) || strlen($name) < 3) {
             return ["status" => "error", "message" => "Invalid Name"];
         }
         
