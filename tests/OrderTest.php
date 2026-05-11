@@ -7,7 +7,7 @@ class OrderTest extends TestCase {
         $processor = new \App\OrderProcessor();
         $response = $processor->process("Ahmed", "DevOps Automation");
         
-        $this->assertEquals("success", $response['status']);
+        $this->assertEquals("succes", $response['status']);
     }
 
     public function testOrderProcessingInvalidName() {
